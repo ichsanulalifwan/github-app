@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.githubapp.adapter.ListUserAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentUserListBinding
+import com.dicoding.picodiploma.githubapp.model.User
 import com.dicoding.picodiploma.githubapp.viewmodel.UserListViewModel
 
 class UserListFragment : Fragment() {
@@ -63,6 +65,17 @@ class UserListFragment : Fragment() {
 
             userListViewModel.setUserList(username)
         }
+
+        userListadapter.setOnItemClickListener(object : ListUserAdapter.OnItemClickListener {
+            override fun onItemClicked(user: User) {
+                val action = user.username?.let {
+                    UserListFragmentDirections.actionUserListFragmentToDetailFragment(it)
+                }
+                action?.let {
+                    findNavController().navigate(it)
+                }
+            }
+        })
     }
 
     private fun setupRecyclerView() {
