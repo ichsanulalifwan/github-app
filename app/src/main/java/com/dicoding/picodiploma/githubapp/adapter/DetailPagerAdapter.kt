@@ -12,6 +12,6 @@ class DetailPagerAdapter(fragment: FragmentActivity) : FragmentStateAdapter(frag
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
-        return FollowFragment.newInstance(username, position + 1)
+        return FollowFragment.newInstance(username, position)
     }
 }

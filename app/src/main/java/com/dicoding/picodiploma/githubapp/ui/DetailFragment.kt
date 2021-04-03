@@ -6,18 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.githubapp.R
+import com.dicoding.picodiploma.githubapp.adapter.DetailPagerAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentDetailBinding
 import com.dicoding.picodiploma.githubapp.viewmodel.DetailViewModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
     private lateinit var userDetailViewModel: DetailViewModel
+    private lateinit var viewPager: ViewPager2
     private val args by navArgs<DetailFragmentArgs>()
 
     companion object {
@@ -44,6 +50,7 @@ class DetailFragment : Fragment() {
 
         showLoading(true)
         observeData()
+        setupViewPager()
     }
 
     private fun observeData() {
@@ -65,6 +72,17 @@ class DetailFragment : Fragment() {
                 showLoading(false)
             }
         })
+    }
+
+    private fun setupViewPager() {
+        val detailPagerAdapter = DetailPagerAdapter(context as FragmentActivity)
+        detailPagerAdapter.username = args.username
+        viewPager = binding.viewPager
+        viewPager.adapter = detailPagerAdapter
+        val tabs: TabLayout = binding.tabLayout
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
     }
 
     private fun showLoading(state: Boolean) {
