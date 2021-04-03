@@ -46,6 +46,7 @@ dependencies {
     // UI
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     // Recyclerview
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
