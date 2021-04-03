@@ -10,4 +10,6 @@
     <string name="txt_following">Following</string>
     <string name="location_users">Location</string>
     <string name="company">Company</string>
+    <string name="tab_text_followers">Followers</string>
+    <string name="tab_text_following">Following</string>
 </resources>

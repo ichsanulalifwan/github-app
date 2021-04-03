@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.githubapp
+package com.dicoding.picodiploma.githubapp.model
 
 data class User (
     var username: String? = null,

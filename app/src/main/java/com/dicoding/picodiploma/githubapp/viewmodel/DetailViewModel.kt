@@ -1,23 +1,23 @@
-package com.dicoding.picodiploma.githubapp
+package com.dicoding.picodiploma.githubapp.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.picodiploma.githubapp.model.User
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
 import java.lang.Exception
 
-class UserListViewModel : ViewModel() {
+class DetailViewModel : ViewModel() {
 
-    private val listUsers = MutableLiveData<ArrayList<User>>()
+    private val detailUser = MutableLiveData<User>()
 
-    fun setUserList(username: String) {
+    fun setUserDetail(username: String) {
 
-        val listUser = ArrayList<User>()
-        val url = "https://api.github.com/search/users?q=$username"
+        val url = "https://api.github.com/users/$username"
         val client = AsyncHttpClient()
         client.addHeader("Authorization","token 74a052e7810f2fd367b034ffbfc32d8992a8c656")
         client.addHeader("User-Agent", "request")
@@ -28,17 +28,18 @@ class UserListViewModel : ViewModel() {
                 responseBody: ByteArray
             ) {
                 val result = String(responseBody)
-                try{
+                try {
                     val responseObject = JSONObject(result)
-                    val items = responseObject.getJSONArray("items")
-                    for (i in 0 until items.length()) {
-                        val item = items.getJSONObject(i)
-                        val user = User()
-                        user.username  = item.getString("login")
-                        user.avatar= item.getString("avatar_url")
-                        listUser.add(user)
-                    }
-                    listUsers.postValue(listUser)
+                    val user = User()
+                    user.username = responseObject.getString("login")
+                    user.avatar = responseObject.getString("avatar_url")
+                    user.name = responseObject.getString("name")
+                    user.company = responseObject.getString("company")
+                    user.location = responseObject.getString("location")
+                    user.repository = responseObject.getString("public_repos")
+                    user.followers = responseObject.getString("followers")
+                    user.following = responseObject.getString("following")
+                    detailUser.postValue(user)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -55,7 +56,7 @@ class UserListViewModel : ViewModel() {
         })
     }
 
-    fun getUserList(): LiveData<ArrayList<User>> {
-        return listUsers
+    fun getUserDetail(): LiveData<User> {
+        return detailUser
     }
 }

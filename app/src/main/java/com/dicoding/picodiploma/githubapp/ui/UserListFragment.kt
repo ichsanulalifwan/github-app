@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.githubapp
+package com.dicoding.picodiploma.githubapp.ui
 
 import android.os.Bundle
 import android.view.KeyEvent
@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.picodiploma.githubapp.adapter.ListUserAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentUserListBinding
+import com.dicoding.picodiploma.githubapp.viewmodel.UserListViewModel
 
 class UserListFragment : Fragment() {
 
@@ -27,7 +29,8 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userListViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserListViewModel::class.java)
+        userListViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            UserListViewModel::class.java)
 
         userListadapter = ListUserAdapter()
         userListadapter.notifyDataSetChanged()

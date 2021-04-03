@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.githubapp
+package com.dicoding.picodiploma.githubapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

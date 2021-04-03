@@ -1,10 +1,11 @@
-package com.dicoding.picodiploma.githubapp
+package com.dicoding.picodiploma.githubapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.dicoding.picodiploma.githubapp.model.User
 import com.dicoding.picodiploma.githubapp.databinding.ItemUserBinding
 
 class ListUserAdapter: RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
