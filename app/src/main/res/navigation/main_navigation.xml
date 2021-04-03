@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/userListFragment"
         android:name="com.dicoding.picodiploma.githubapp.ui.UserListFragment"
-        android:label="fragment_user_list"
+        android:label="@string/github_user_search"
         tools:layout="@layout/fragment_user_list">
         <action
             android:id="@+id/action_userListFragment_to_detailFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.dicoding.picodiploma.githubapp.ui.DetailFragment"
-        android:label="fragment_detail"
+        android:label="@string/detail_user"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="username"
