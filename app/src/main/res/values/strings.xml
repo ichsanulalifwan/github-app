@@ -3,4 +3,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="find_github_users">Find GitHub Users</string>
+    <string name="name_users">Name</string>
+    <string name="username">username</string>
+    <string name="txt_repository">Repository</string>
+    <string name="txt_followers">Followers</string>
+    <string name="txt_following">Following</string>
+    <string name="location_users">Location</string>
+    <string name="company">Company</string>
 </resources>
