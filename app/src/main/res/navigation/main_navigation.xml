@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/userListFragment"
         android:name="com.dicoding.picodiploma.githubapp.ui.UserListFragment"
-        android:label="@string/github_user_search"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_user_list">
         <action
             android:id="@+id/action_userListFragment_to_detailFragment"

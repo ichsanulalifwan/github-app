@@ -1,5 +1,9 @@
 package com.dicoding.picodiploma.githubapp.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class User (
     var username: String? = null,
     var name: String? = null,
@@ -9,4 +13,4 @@ data class User (
     var followers: String? = null,
     var following: String? = null,
     var avatar: String? = null
-)
+) : Parcelable
