@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.githubapp.adapter.ListUserAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentFollowBinding
 import com.dicoding.picodiploma.githubapp.model.User
+import com.dicoding.picodiploma.githubapp.viewmodel.FollowerViewModel
+import com.dicoding.picodiploma.githubapp.viewmodel.FollowingViewModel
 
 class FollowFragment : Fragment() {
 
     private lateinit var binding: FragmentFollowBinding
-    private lateinit var followerListadapter: ListUserAdapter
+    private lateinit var followListadapter: ListUserAdapter
+    private lateinit var followerViewModel: FollowerViewModel
+    private lateinit var followingViewModel: FollowingViewModel
 
     companion object {
 
@@ -42,10 +47,40 @@ class FollowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        followerListadapter = ListUserAdapter()
-        followerListadapter.setOnItemClickListener(object : ListUserAdapter.OnItemClickListener{
+        val username = arguments?.getString(ARG_USERNAME)
+        val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
+
+        followerViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowerViewModel::class.java)
+        followingViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowingViewModel::class.java)
+
+        if (username != null) {
+            followerViewModel.setFollowersList(username)
+            followingViewModel.setFollowingList(username)
+        }
+
+        when (index) {
+            0 -> followerViewModel.getFollowersList().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    followListadapter.setData(it)
+                    showLoading(false)
+                }
+            })
+
+            1 -> followingViewModel.getFollowingList().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    followListadapter.setData(it)
+                    showLoading(false)
+                }
+            })
+        }
+
+        followListadapter = ListUserAdapter()
+        followListadapter.setOnItemClickListener(object : ListUserAdapter.OnItemClickListener{
             override fun onItemClicked(user: User) {
-                Toast.makeText(context, "Follower Selected", Toast.LENGTH_SHORT).show()
+                when (index) {
+                    0 -> Toast.makeText(context, "Follower Selected", Toast.LENGTH_SHORT).show()
+                    1 -> Toast.makeText(context, "Following Selected", Toast.LENGTH_SHORT).show()
+                }
             }
         })
 
@@ -56,7 +91,7 @@ class FollowFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.apply {
             followRv.layoutManager = LinearLayoutManager(context)
-            followRv.adapter = followerListadapter
+            followRv.adapter = followListadapter
             followRv.setHasFixedSize(true)
         }
     }
