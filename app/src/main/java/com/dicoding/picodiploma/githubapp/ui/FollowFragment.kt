@@ -16,6 +16,21 @@ class FollowFragment : Fragment() {
     private lateinit var binding: FragmentFollowBinding
     private lateinit var followerListadapter: ListUserAdapter
 
+    companion object {
+
+        private const val ARG_SECTION_NUMBER = "section_number"
+        private const val ARG_USERNAME = "username"
+
+        fun newInstance(username: String?, index: Int): FollowFragment {
+            val fragment = FollowFragment()
+            val bundle = Bundle()
+            bundle.putString(ARG_USERNAME, username)
+            bundle.putInt(ARG_SECTION_NUMBER, index)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

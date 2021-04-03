@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.dicoding.picodiploma.githubapp.R
 import com.dicoding.picodiploma.githubapp.databinding.FragmentDetailBinding
 import com.dicoding.picodiploma.githubapp.viewmodel.DetailViewModel
 
@@ -17,6 +19,14 @@ class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
     private lateinit var userDetailViewModel: DetailViewModel
     private val args by navArgs<DetailFragmentArgs>()
+
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_followers,
+            R.string.tab_text_following
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
