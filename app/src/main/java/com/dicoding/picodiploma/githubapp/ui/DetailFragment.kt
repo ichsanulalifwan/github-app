@@ -1,5 +1,6 @@
 package com.dicoding.picodiploma.githubapp.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -53,7 +54,7 @@ class DetailFragment : Fragment() {
         userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
             .get(DetailViewModel::class.java)
 
-        userDetailViewModel.setUserDetail(args.username)
+        this.context?.let { userDetailViewModel.setUserDetail(it, args.username) }
 
         favUserViewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
         favUserViewModel.getFavUser(args.username)

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_baseline_notifications_active_24"
+        android:iconSpaceReserved="false"
+        android:key="reminder"
+        android:title="Daily Reminder" />
+
+    <Preference
+        android:icon="@drawable/ic_baseline_translate_24"
+        android:iconSpaceReserved="false"
+        android:key="@string/key_language"
+        android:title="@string/change_language_settings" />
+
+</PreferenceScreen>

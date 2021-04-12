@@ -17,7 +17,7 @@ class DetailViewModel : ViewModel() {
 
     private val detailUser = MutableLiveData<User>()
 
-    fun setUserDetail(username: String, context: Context) {
+    fun setUserDetail(context: Context, username: String) {
 
         val url = "https://api.github.com/users/$username"
         val client = AsyncHttpClient()
