@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -16,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.githubapp.R
 import com.dicoding.picodiploma.githubapp.adapter.DetailPagerAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentDetailBinding
+import com.dicoding.picodiploma.githubapp.db.entity.FavUser
 import com.dicoding.picodiploma.githubapp.model.User
 import com.dicoding.picodiploma.githubapp.viewmodel.DetailViewModel
 import com.dicoding.picodiploma.githubapp.viewmodel.FavUserViewModel
@@ -26,9 +28,10 @@ class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
     private lateinit var userDetailViewModel: DetailViewModel
-    private lateinit var FavUserViewModel: FavUserViewModel
+    private lateinit var favUserViewModel: FavUserViewModel
     private lateinit var viewPager: ViewPager2
     private val args by navArgs<DetailFragmentArgs>()
+    private var favState: Boolean = false
 
     companion object {
         @StringRes
@@ -52,7 +55,16 @@ class DetailFragment : Fragment() {
         userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
         userDetailViewModel.setUserDetail(args.username)
 
-        FavUserViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FavUserViewModel::class.java)
+        favUserViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FavUserViewModel::class.java)
+        favUserViewModel.getFavUser(args.username)?.observe(viewLifecycleOwner, Observer { currentUser ->
+            if (currentUser.isEmpty() && currentUser[0].username == args.username) {
+                favState = true
+                setStatusFav(favState)
+            } else {
+                favState = false
+                setStatusFav(favState)
+            }
+        })
 
         showLoading(true)
         observeData()
@@ -102,8 +114,13 @@ class DetailFragment : Fragment() {
     }
 
     private fun onFabClicked(detailuser: User) {
-
-
+        binding.fabFav.setOnClickListener {
+            if (!favState) {
+                favUserViewModel.addFavUser(detailuser)
+            } else {
+                favUserViewModel.deleteFavUser(detailuser)
+            }
+        }
     }
 
     private fun setStatusFav(statusFav: Boolean) {

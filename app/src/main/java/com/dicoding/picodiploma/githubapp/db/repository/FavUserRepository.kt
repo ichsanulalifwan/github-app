@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.dicoding.picodiploma.githubapp.db.AppDatabase
 import com.dicoding.picodiploma.githubapp.db.FavUserDao
 import com.dicoding.picodiploma.githubapp.db.entity.FavUser
+import com.dicoding.picodiploma.githubapp.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -20,23 +21,45 @@ class FavUserRepository(application: Application) {
         favUserList = favUserDao.loadAllFav()
     }
 
-    fun getFavuserList():LiveData<List<FavUser>>? {
+    fun getFavuserList(): LiveData<List<FavUser>>? {
         return favUserList
     }
 
-    suspend fun getFavUser(username: String): FavUser {
+    fun getFavUser(username: String): LiveData<List<FavUser>> {
         return favUserDao.loadSingle(username)
     }
 
-    fun insert(user: FavUser) = runBlocking {
+    fun insert(user: User) = runBlocking {
         this.launch(Dispatchers.IO) {
-            favUserDao.insertUser(user)
+            favUserDao.insertUser(
+                FavUser(
+                    username = user.username,
+                    name = user.name,
+                    location = user.location,
+                    repository = user.repository,
+                    company = user.company,
+                    followers = user.followers,
+                    following = user.following,
+                    avatar = user.avatar
+                )
+            )
         }
     }
 
-    fun delete(user: FavUser) = runBlocking {
+    fun delete(user: User) = runBlocking {
         this.launch(Dispatchers.IO) {
-            favUserDao.deleteUser(user)
+            favUserDao.deleteUser(
+                FavUser(
+                    username = user.username,
+                    name = user.name,
+                    location = user.location,
+                    repository = user.repository,
+                    company = user.company,
+                    followers = user.followers,
+                    following = user.following,
+                    avatar = user.avatar
+                )
+            )
         }
     }
 }
