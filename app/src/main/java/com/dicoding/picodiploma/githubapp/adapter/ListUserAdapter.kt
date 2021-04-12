@@ -33,7 +33,6 @@ class ListUserAdapter: RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(listUser[position])
-        holder.itemView.setOnClickListener { onItemClickListener.onItemClicked(listUser[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int = listUser.size
@@ -46,6 +45,9 @@ class ListUserAdapter: RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
                     .apply(RequestOptions().override(55, 55))
                     .into(imgAvatar)
                 txtUsername.text = user.username
+                todoCard.setOnClickListener {
+                    onItemClickListener.onItemClicked(user)
+                }
             }
         }
     }
