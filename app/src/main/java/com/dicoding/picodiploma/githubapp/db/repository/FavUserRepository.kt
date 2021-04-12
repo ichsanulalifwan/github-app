@@ -25,15 +25,15 @@ class FavUserRepository(application: Application) {
         return favUserList
     }
 
-    fun getFavUser(username: String): LiveData<List<FavUser>> {
+    suspend fun getFavUser(username: String): FavUser {
         return favUserDao.loadSingle(username)
     }
 
     fun insert(user: User) = runBlocking {
         this.launch(Dispatchers.IO) {
-            favUserDao.insertUser(
+            user.username?.let {
                 FavUser(
-                    username = user.username,
+                    username = it,
                     name = user.name,
                     location = user.location,
                     repository = user.repository,
@@ -42,15 +42,19 @@ class FavUserRepository(application: Application) {
                     following = user.following,
                     avatar = user.avatar
                 )
-            )
+            }?.let {
+                favUserDao.insertUser(
+                    it
+                )
+            }
         }
     }
 
     fun delete(user: User) = runBlocking {
         this.launch(Dispatchers.IO) {
-            favUserDao.deleteUser(
+            user.username?.let {
                 FavUser(
-                    username = user.username,
+                    username = it,
                     name = user.name,
                     location = user.location,
                     repository = user.repository,
@@ -59,7 +63,11 @@ class FavUserRepository(application: Application) {
                     following = user.following,
                     avatar = user.avatar
                 )
-            )
+            }?.let {
+                favUserDao.deleteUser(
+                    it
+                )
+            }
         }
     }
 }

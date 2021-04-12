@@ -1,14 +1,13 @@
 package com.dicoding.picodiploma.githubapp.ui
 
-import android.content.ContentValues
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -17,7 +16,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.githubapp.R
 import com.dicoding.picodiploma.githubapp.adapter.DetailPagerAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentDetailBinding
-import com.dicoding.picodiploma.githubapp.db.entity.FavUser
 import com.dicoding.picodiploma.githubapp.model.User
 import com.dicoding.picodiploma.githubapp.viewmodel.DetailViewModel
 import com.dicoding.picodiploma.githubapp.viewmodel.FavUserViewModel
@@ -52,23 +50,19 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
+        userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
+            .get(DetailViewModel::class.java)
+
         userDetailViewModel.setUserDetail(args.username)
 
-        favUserViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FavUserViewModel::class.java)
-        favUserViewModel.getFavUser(args.username)?.observe(viewLifecycleOwner, Observer { currentUser ->
-            if (currentUser.isEmpty() && currentUser[0].username == args.username) {
-                favState = true
-                setStatusFav(favState)
-            } else {
-                favState = false
-                setStatusFav(favState)
-            }
-        })
+        favUserViewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
+        favUserViewModel.getFavUser(args.username)
+
 
         showLoading(true)
         observeData()
         setupViewPager()
+        observeDatabase()
     }
 
     private fun observeData() {
@@ -87,7 +81,6 @@ class DetailFragment : Fragment() {
                     txtLocationD.text = detailuser.location
                     txtCompany.text = detailuser.company
                 }
-
                 onFabClicked(detailuser)
                 showLoading(false)
             }
@@ -113,12 +106,33 @@ class DetailFragment : Fragment() {
         }
     }
 
+    private fun observeDatabase() {
+        favUserViewModel.observableCurrentUser.observe(viewLifecycleOwner, { currentUser ->
+            if (currentUser != null) {
+                favState = true
+                setStatusFav(favState)
+            } else {
+                favState = false
+                setStatusFav(favState)
+            }
+        })
+    }
+
     private fun onFabClicked(detailuser: User) {
         binding.fabFav.setOnClickListener {
+            observeDatabase()
             if (!favState) {
                 favUserViewModel.addFavUser(detailuser)
+                Toast.makeText(context,
+                    "${args.username} Added to Favorite",
+                    Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 favUserViewModel.deleteFavUser(detailuser)
+                Toast.makeText(context,
+                    "${args.username} Deleted to Favorite",
+                    Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

@@ -6,11 +6,11 @@ import com.dicoding.picodiploma.githubapp.db.entity.FavUser
 
 @Dao
 interface FavUserDao {
-    @Query("SELECT * FROM favorite_user")
+    @Query("SELECT * FROM favorite_user_table")
     fun loadAllFav(): LiveData<List<FavUser>>
 
-    @Query("SELECT * FROM favorite_user WHERE username = :username ")
-    fun loadSingle(username: String): LiveData<List<FavUser>>
+    @Query("SELECT * FROM favorite_user_table WHERE username = :username ")
+    suspend fun loadSingle(username: String): FavUser
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertUser(user: FavUser)

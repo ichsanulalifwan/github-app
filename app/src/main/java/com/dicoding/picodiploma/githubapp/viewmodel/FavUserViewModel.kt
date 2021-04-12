@@ -7,12 +7,17 @@ import androidx.lifecycle.MutableLiveData
 import com.dicoding.picodiploma.githubapp.db.entity.FavUser
 import com.dicoding.picodiploma.githubapp.db.repository.FavUserRepository
 import com.dicoding.picodiploma.githubapp.model.User
+import kotlinx.coroutines.runBlocking
 
 class FavUserViewModel(application: Application) : AndroidViewModel(application) {
 
     private val favUserRepo = FavUserRepository(application)
     private val favUserList: LiveData<List<FavUser>>? = favUserRepo.getFavuserList()
     private val status = MutableLiveData<Boolean>()
+    private val currentUser = MutableLiveData<FavUser>()
+
+    val observableCurrentUser: LiveData<FavUser>
+        get() = currentUser
 
     val observableStatus: LiveData<Boolean>
         get() = status
@@ -21,8 +26,8 @@ class FavUserViewModel(application: Application) : AndroidViewModel(application)
         return favUserList
     }
 
-    fun getFavUser(username: String): LiveData<List<FavUser>>? {
-        return favUserRepo.getFavUser(username)
+    fun getFavUser(username: String) = runBlocking {
+        currentUser.value = favUserRepo.getFavUser(username)
     }
 
     fun addFavUser(user: User) {

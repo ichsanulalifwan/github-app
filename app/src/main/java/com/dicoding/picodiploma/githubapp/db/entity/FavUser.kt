@@ -5,10 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "favorite_user")
+@Entity(tableName = "favorite_user_table")
 data class FavUser(
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "username") var username: String? = null,
+    @ColumnInfo(name = "username") var username: String,
     @ColumnInfo(name = "name")var name: String?,
     @ColumnInfo(name = "location")var location: String?,
     @ColumnInfo(name = "repository")var repository: String?,

@@ -9,19 +9,17 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="wrap_content">
 
         <include
             android:id="@+id/item_detail"
-            layout="@layout/item_detail"/>
+            layout="@layout/item_detail" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:background="?attr/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/icon_company"
             app:tabIndicatorAnimationMode="linear"
             app:tabIndicatorColor="@color/black"
             app:tabIndicatorFullWidth="true"
@@ -37,13 +35,13 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="32dp"
         android:backgroundTint="@color/fab_red"
-        android:src="@drawable/ic_baseline_favorite_border_24"
-        android:contentDescription="@string/favotite" />
+        android:contentDescription="@string/favotite"
+        android:src="@drawable/ic_baseline_favorite_border_24" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
