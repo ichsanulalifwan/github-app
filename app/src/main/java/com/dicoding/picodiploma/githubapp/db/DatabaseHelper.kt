@@ -18,8 +18,6 @@ internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
                 " ${DatabaseContract.UserColoumns.NAME} TEXT NOT NULL," +
                 " ${DatabaseContract.UserColoumns.LOCATION} TEXT NOT NULL," +
                 " ${DatabaseContract.UserColoumns.COMPANY} TEXT NOT NULL)," +
-                " ${DatabaseContract.UserColoumns.FOLLOWER} TEXT NOT NULL)," +
-                " ${DatabaseContract.UserColoumns.FOLLOWING} TEXT NOT NULL)," +
                 " ${DatabaseContract.UserColoumns.AVATAR_URL} TEXT NOT NULL)"
     }
 

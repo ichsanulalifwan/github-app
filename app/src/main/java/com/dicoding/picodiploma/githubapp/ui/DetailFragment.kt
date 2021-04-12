@@ -1,5 +1,6 @@
 package com.dicoding.picodiploma.githubapp.ui
 
+import android.content.ContentValues
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,8 @@ import com.dicoding.picodiploma.githubapp.R
 import com.dicoding.picodiploma.githubapp.adapter.DetailPagerAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentDetailBinding
 import com.dicoding.picodiploma.githubapp.databinding.ItemDetailBinding
+import com.dicoding.picodiploma.githubapp.db.DatabaseContract
+import com.dicoding.picodiploma.githubapp.model.User
 import com.dicoding.picodiploma.githubapp.viewmodel.DetailViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -47,25 +50,12 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var statusFav = false
-
         userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
         userDetailViewModel.setUserDetail(args.username)
 
         showLoading(true)
         observeData()
         setupViewPager()
-
-        setStatusFav(statusFav)
-        bindingDetail.fabFav.setOnClickListener {
-            statusFav = !statusFav
-
-            // add to database
-
-            setStatusFav(statusFav)
-
-        }
-
     }
 
     private fun observeData() {
@@ -84,9 +74,34 @@ class DetailFragment : Fragment() {
                     txtLocationD.text = detailuser.location
                     txtCompany.text = detailuser.company
                 }
+
+                onFabClicked(detailuser)
                 showLoading(false)
             }
         })
+    }
+
+    private fun onFabClicked(detailuser: User) {
+        var statusFav = false
+
+        setStatusFav(statusFav)
+
+        bindingDetail.fabFav.setOnClickListener {
+            val values = ContentValues()
+
+            statusFav = !statusFav
+
+            values.put(DatabaseContract.UserColoumns.USERNAME, detailuser.username)
+            values.put(DatabaseContract.UserColoumns.NAME, detailuser.name)
+            values.put(DatabaseContract.UserColoumns.LOCATION, detailuser.location)
+            values.put(DatabaseContract.UserColoumns.COMPANY, detailuser.company)
+            values.put(DatabaseContract.UserColoumns.AVATAR_URL, detailuser.avatar)
+
+            setStatusFav(statusFav)
+
+        }
+
+
     }
 
     private fun setupViewPager() {

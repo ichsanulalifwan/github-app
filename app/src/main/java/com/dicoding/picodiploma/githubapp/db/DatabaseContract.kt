@@ -11,8 +11,6 @@ internal class DatabaseContract {
             const val NAME = "name"
             const val LOCATION = "location"
             const val COMPANY = "company"
-            const val FOLLOWER = "follower"
-            const val FOLLOWING = "following"
             const val AVATAR_URL = "photo_url"
         }
     }
