@@ -15,13 +15,15 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.picodiploma.githubapp.R
 import com.dicoding.picodiploma.githubapp.adapter.DetailPagerAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentDetailBinding
+import com.dicoding.picodiploma.githubapp.databinding.ItemDetailBinding
 import com.dicoding.picodiploma.githubapp.viewmodel.DetailViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailFragment : Fragment() {
 
-    private lateinit var binding: FragmentDetailBinding
+    private lateinit var bindingDetail: FragmentDetailBinding
+    private lateinit var bindingItem: ItemDetailBinding
     private lateinit var userDetailViewModel: DetailViewModel
     private lateinit var viewPager: ViewPager2
     private val args by navArgs<DetailFragmentArgs>()
@@ -38,12 +40,14 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        bindingDetail = FragmentDetailBinding.inflate(layoutInflater, container, false)
+        return bindingDetail.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var statusFav = false
 
         userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
         userDetailViewModel.setUserDetail(args.username)
@@ -51,12 +55,23 @@ class DetailFragment : Fragment() {
         showLoading(true)
         observeData()
         setupViewPager()
+
+        setStatusFav(statusFav)
+        bindingDetail.fabFav.setOnClickListener {
+            statusFav = !statusFav
+
+            // add to database
+
+            setStatusFav(statusFav)
+
+        }
+
     }
 
     private fun observeData() {
         userDetailViewModel.getUserDetail().observe(viewLifecycleOwner, { detailuser ->
             if (detailuser != null) {
-                binding.apply {
+                bindingItem.apply {
                     Glide.with(this@DetailFragment)
                         .load(detailuser.avatar)
                         .apply(RequestOptions().override(100, 100))
@@ -77,9 +92,9 @@ class DetailFragment : Fragment() {
     private fun setupViewPager() {
         val detailPagerAdapter = DetailPagerAdapter(context as FragmentActivity)
         detailPagerAdapter.username = args.username
-        viewPager = binding.viewPager
+        viewPager = bindingDetail.viewPager
         viewPager.adapter = detailPagerAdapter
-        val tabs: TabLayout = binding.tabLayout
+        val tabs: TabLayout = bindingDetail.tabLayout
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
@@ -87,9 +102,17 @@ class DetailFragment : Fragment() {
 
     private fun showLoading(state: Boolean) {
         if (state) {
-            binding.detailProgressBar.visibility = View.VISIBLE
+            bindingItem.detailProgressBar.visibility = View.VISIBLE
         } else {
-            binding.detailProgressBar.visibility = View.GONE
+            bindingItem.detailProgressBar.visibility = View.GONE
+        }
+    }
+
+    private fun setStatusFav(statusFav: Boolean) {
+        if (statusFav) {
+            bindingDetail.fabFav.setImageResource(R.drawable.ic_baseline_favorite_24)
+        } else {
+            bindingDetail.fabFav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
         }
     }
 }

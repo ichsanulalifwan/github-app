@@ -12,4 +12,5 @@
     <string name="tab_text_following">Following</string>
     <string name="change_language_settings">Change Language Settings</string>
     <string name="detail_user">Detail User</string>
+    <string name="favotite">Favotite</string>
 </resources>
