@@ -18,6 +18,7 @@ import com.dicoding.picodiploma.githubapp.adapter.DetailPagerAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentDetailBinding
 import com.dicoding.picodiploma.githubapp.model.User
 import com.dicoding.picodiploma.githubapp.viewmodel.DetailViewModel
+import com.dicoding.picodiploma.githubapp.viewmodel.FavUserViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -25,6 +26,7 @@ class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
     private lateinit var userDetailViewModel: DetailViewModel
+    private lateinit var FavUserViewModel: FavUserViewModel
     private lateinit var viewPager: ViewPager2
     private val args by navArgs<DetailFragmentArgs>()
 
@@ -49,6 +51,8 @@ class DetailFragment : Fragment() {
 
         userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
         userDetailViewModel.setUserDetail(args.username)
+
+        FavUserViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FavUserViewModel::class.java)
 
         showLoading(true)
         observeData()
