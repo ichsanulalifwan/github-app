@@ -116,6 +116,12 @@ class DetailFragment : Fragment() {
                 setStatusFav(favState)
             }
         })
+
+        /*favUserViewModel.observableStatus.observe(viewLifecycleOwner, { status ->
+            status.let {
+                setStatusFav(status)
+            }
+        })*/
     }
 
     private fun onFabClicked(detailuser: User) {
@@ -138,10 +144,9 @@ class DetailFragment : Fragment() {
     }
 
     private fun setStatusFav(statusFav: Boolean) {
-        if (statusFav) {
-            binding.fabFav.setImageResource(R.drawable.ic_baseline_favorite_24)
-        } else {
-            binding.fabFav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+        when (statusFav) {
+            true -> binding.fabFav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            false -> binding.fabFav.setImageResource(R.drawable.ic_baseline_favorite_24)
         }
     }
 }

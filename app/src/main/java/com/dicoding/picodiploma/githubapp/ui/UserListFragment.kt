@@ -65,7 +65,11 @@ class UserListFragment : Fragment() {
 
         setupRecyclerView()
         observeData()
+        userSearch()
+        onItemSelected()
+    }
 
+    private fun userSearch() {
         binding.editUserSearch.setOnKeyListener { _, keyCode, event ->
             when {
                 ((keyCode == KeyEvent.KEYCODE_ENTER) && (event.action == KeyEvent.ACTION_DOWN)) -> {
@@ -91,17 +95,6 @@ class UserListFragment : Fragment() {
 
             userListViewModel.setUserList(username)
         }
-
-        userListadapter.setOnItemClickListener(object : ListUserAdapter.OnItemClickListener {
-            override fun onItemClicked(user: User) {
-                val action = user.username?.let {
-                    UserListFragmentDirections.actionUserListFragmentToDetailFragment(it)
-                }
-                action?.let {
-                    findNavController().navigate(it)
-                }
-            }
-        })
     }
 
     private fun setupRecyclerView() {
@@ -117,6 +110,19 @@ class UserListFragment : Fragment() {
             if (listUser != null) {
                 userListadapter.setData(listUser)
                 showLoading(false)
+            }
+        })
+    }
+
+    private fun onItemSelected() {
+        userListadapter.setOnItemClickListener(object : ListUserAdapter.OnItemClickListener {
+            override fun onItemClicked(user: User) {
+                val action = user.username?.let {
+                    UserListFragmentDirections.actionUserListFragmentToDetailFragment(it)
+                }
+                action?.let {
+                    findNavController().navigate(it)
+                }
             }
         })
     }

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.dicoding.picodiploma.githubapp.db.entity.FavUser
 
 
-@Database(entities = [FavUser::class], exportSchema = false, version = 1)
+@Database(entities = [FavUser::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun favDao(): FavUserDao

@@ -1,6 +1,8 @@
 package com.dicoding.picodiploma.githubapp.viewmodel
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +17,7 @@ class DetailViewModel : ViewModel() {
 
     private val detailUser = MutableLiveData<User>()
 
-    fun setUserDetail(username: String) {
+    fun setUserDetail(username: String, context: Context) {
 
         val url = "https://api.github.com/users/$username"
         val client = AsyncHttpClient()
@@ -41,6 +43,7 @@ class DetailViewModel : ViewModel() {
                     user.following = responseObject.getString("following")
                     detailUser.postValue(user)
                 } catch (e: Exception) {
+                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                     e.printStackTrace()
                 }
             }
@@ -51,6 +54,13 @@ class DetailViewModel : ViewModel() {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
+                val errorMessage = when (statusCode) {
+                    401 -> "$statusCode : Bad Request"
+                    403 -> "$statusCode : Forbidden"
+                    404 -> "$statusCode : Not Found"
+                    else -> "$statusCode : ${error?.message}"
+                }
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 Log.d("onFailure", error?.message.toString())
             }
         })

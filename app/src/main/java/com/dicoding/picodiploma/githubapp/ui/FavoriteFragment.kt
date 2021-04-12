@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.githubapp.adapter.FavUserAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentFavoriteBinding
+import com.dicoding.picodiploma.githubapp.db.entity.FavUser
 import com.dicoding.picodiploma.githubapp.viewmodel.FavUserViewModel
 
 class FavoriteFragment : Fragment() {
@@ -36,6 +37,20 @@ class FavoriteFragment : Fragment() {
 
         setupRecyclerView()
         observeData()
+        onItemSelected()
+    }
+
+    private fun onItemSelected() {
+        favAdapter.setOnItemClickListener(object: FavUserAdapter.OnItemClickListener {
+            override fun onItemClicked(user: FavUser) {
+                val action = user.username.let {
+                    FavoriteFragmentDirections.actionFavoriteFragmentToDetailFragment(it)
+                }
+                action.let {
+                    findNavController().navigate(it)
+                }
+            }
+        })
     }
 
     private fun observeData() {
