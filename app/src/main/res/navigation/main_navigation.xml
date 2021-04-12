@@ -15,6 +15,9 @@
             app:destination="@id/detailFragment"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@animator/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_userListFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
 
     <fragment
@@ -27,4 +30,9 @@
             android:defaultValue="null"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.dicoding.picodiploma.githubapp.ui.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>

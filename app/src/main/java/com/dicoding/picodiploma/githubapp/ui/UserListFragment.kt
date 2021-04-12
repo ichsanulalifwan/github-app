@@ -1,14 +1,14 @@
 package com.dicoding.picodiploma.githubapp.ui
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
+import android.provider.Settings
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.picodiploma.githubapp.R
 import com.dicoding.picodiploma.githubapp.adapter.ListUserAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentUserListBinding
 import com.dicoding.picodiploma.githubapp.model.User
@@ -19,6 +19,32 @@ class UserListFragment : Fragment() {
     private lateinit var binding: FragmentUserListBinding
     private lateinit var userListadapter: ListUserAdapter
     private lateinit var userListViewModel: UserListViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            R.id.change_language -> {
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
+            }
+
+            R.id.fav_list -> {
+                val action = UserListFragmentDirections.actionUserListFragmentToFavoriteFragment()
+                findNavController().navigate(action)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +57,8 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userListViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            UserListViewModel::class.java)
+        userListViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
+            .get(UserListViewModel::class.java)
 
         userListadapter = ListUserAdapter()
         userListadapter.notifyDataSetChanged()

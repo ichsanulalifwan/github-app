@@ -13,7 +13,7 @@ class FavUserAdapter : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
     private lateinit var onItemClickListener: OnItemClickListener
     private val listFavUser = ArrayList<FavUser>()
 
-    fun setData(list: ArrayList<FavUser>) {
+    fun setData(list: List<FavUser>) {
         listFavUser.clear()
         listFavUser.addAll(list)
         notifyDataSetChanged()
