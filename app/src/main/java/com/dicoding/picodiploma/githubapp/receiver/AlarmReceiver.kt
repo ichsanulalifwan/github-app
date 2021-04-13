@@ -34,16 +34,23 @@ class AlarmReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun showReminderNotification(context: Context?, title: String, message: String?, notifId: Int) {
+    private fun showReminderNotification(
+        context: Context?,
+        title: String,
+        message: String?,
+        notifId: Int
+    ) {
 
         val channelId = "Channel_1"
         val channelName = "GitHubApp Reminder"
 
-        val notificationManagerCompat = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManagerCompat =
+            context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
         val notifIntent = Intent(context, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(context, 0, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent =
+            PendingIntent.getActivity(context, 0, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val builder = NotificationCompat.Builder(context, channelId)
             .setContentIntent(pendingIntent)
@@ -57,11 +64,14 @@ class AlarmReceiver : BroadcastReceiver() {
 
         // check for android Oreo and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notifChannel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
-            notifChannel.enableLights(true)
-            notifChannel.lightColor = Color.RED
-            notifChannel.enableVibration(true)
-            notifChannel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
+            val notifChannel =
+                NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+                    .apply {
+                        enableLights(true)
+                        lightColor = Color.RED
+                        enableVibration(true)
+                        vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
+                    }
 
             notificationManagerCompat.createNotificationChannel(notifChannel)
 
@@ -80,13 +90,24 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val timeArray = time.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
-        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
-        calendar.set(Calendar.SECOND, 0)
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
+            set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
+            set(Calendar.SECOND, 0)
+        }
 
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_REMINDER, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            ID_REMINDER,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        alarmManager.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
 
         Toast.makeText(context, R.string.setup_reminder, Toast.LENGTH_SHORT).show()
     }
@@ -94,7 +115,12 @@ class AlarmReceiver : BroadcastReceiver() {
     fun cancelReminder(context: Context?) {
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_REMINDER, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            ID_REMINDER,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
         pendingIntent.cancel()
 
         alarmManager.cancel(pendingIntent)

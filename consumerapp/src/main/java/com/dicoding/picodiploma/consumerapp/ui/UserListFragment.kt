@@ -1,16 +1,35 @@
 package com.dicoding.picodiploma.consumerapp.ui
 
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.consumerapp.adapter.UserAdapter
 import com.dicoding.picodiploma.consumerapp.databinding.FragmentUserListBinding
+import com.dicoding.picodiploma.consumerapp.helper.MappingHelper
+import com.dicoding.picodiploma.consumerapp.model.User
+import com.google.android.material.snackbar.Snackbar
 
 class UserListFragment : Fragment() {
 
     private lateinit var binding: FragmentUserListBinding
     private lateinit var userListadapter: UserAdapter
+
+    companion object {
+
+        private const val AUTHORITY = "com.dicoding.picodiploma.githubapp.provider"
+        private const val SCHEME = "content"
+        private const val TABLE_NAME = "favorite_user_table"
+
+        val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
+            .authority(AUTHORITY)
+            .appendPath(TABLE_NAME)
+            .build()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,15 +41,20 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         userListadapter = UserAdapter()
-        userListadapter.notifyDataSetChanged()
-
-        setupRecyclerView()
-        observeData()
+        loadData()
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(list: List<User>) {
+        userListadapter.apply {
+            setData(list)
+            notifyDataSetChanged()
+            setOnItemClickListener(object : UserAdapter.OnItemClickListener {
+                override fun onItemClicked(user: User) {
+                    Toast.makeText(context, "User Selected", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
         binding.apply {
             userRecyclerView.layoutManager = LinearLayoutManager(activity)
             userRecyclerView.adapter = userListadapter
@@ -38,9 +62,45 @@ class UserListFragment : Fragment() {
         }
     }
 
-    private fun observeData() {
-        //
+    private fun loadData() {
+        val contentResolver = context?.contentResolver
+        showLoading(true)
+        val cursor = contentResolver?.query(
+            CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )
+        val data = MappingHelper.mapCursorToArrayList(cursor)
+        if (cursor != null && cursor.count > 0) {
+            setupRecyclerView(data)
+            showLoading(false)
+        } else {
+            showLoading(true)
+            Snackbar.make(
+                binding.userRecyclerView,
+                "There's No Favorite User",
+                Snackbar.LENGTH_SHORT
+            )
+                .show()
+        }
     }
+
+    /*fun mapCursorToArrayList(usersCursor: Cursor?): ArrayList<User> {
+        val userLIst = ArrayList<User>()
+
+        usersCursor?.apply {
+            while (moveToNext()) {
+                val username = getString(getColumnIndexOrThrow("username"))
+                val name = getString(getColumnIndexOrThrow("name"))
+                val location = getString(getColumnIndexOrThrow("location"))
+                val avatar = getString(getColumnIndexOrThrow("avatar"))
+                userLIst.add(User(username, name, location, avatar))
+            }
+        }
+        return userLIst
+    }*/
 
     private fun showLoading(state: Boolean) {
         if (state) {
@@ -50,3 +110,4 @@ class UserListFragment : Fragment() {
         }
     }
 }
+

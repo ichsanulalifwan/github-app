@@ -6,6 +6,13 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <permission
+        android:name="com.dicoding.picodiploma.githubapp.provider.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.dicoding.picodiploma.githubapp.provider.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +20,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubApp">
+        <provider
+            android:name=".provider.GithubContentProvider"
+            android:authorities="com.dicoding.picodiploma.githubapp.provider"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.dicoding.picodiploma.githubapp.provider.READ_DATABASE"
+            android:writePermission="com.dicoding.picodiploma.githubapp.provider.WRITE_DATABASE" />
+
         <activity android:name=".ui.SettingsActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
@@ -26,13 +41,5 @@
             android:name=".receiver.AlarmReceiver"
             android:enabled="true"
             android:exported="true" />
-
-        <provider
-            android:name=".provider.GithubContentProvider"
-            android:authorities="com.dicoding.picodiploma.githubapp"
-            android:enabled="true"
-            android:exported="true"
-            android:readPermission="com.dicoding.picodiploma.githubapp.READ_DATABASE"
-            android:writePermission="com.dicoding.picodiploma.githubapp.WRITE_DATABASE" />
     </application>
 </manifest>
