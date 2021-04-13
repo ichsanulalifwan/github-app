@@ -38,7 +38,7 @@ class AlarmReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun showReminderNotification(context: Context?, title: String, message: String, notifId: Int) {
+    private fun showReminderNotification(context: Context?, title: String, message: String?, notifId: Int) {
 
         val channelId = "Channel_1"
         val channelName = "GitHubApp Reminder"
@@ -74,11 +74,11 @@ class AlarmReceiver : BroadcastReceiver() {
         Toast.makeText(context, "$title : $message", Toast.LENGTH_LONG).show()
     }
 
-    fun setReminder(context: Context, time: String, message: String?) {
+    fun setReminder(context: Context?, time: String, message: String?) {
 
         if (isDateInvalid(time, TIME_FORMAT)) return
 
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra(EXTRA_MESSAGE, message)
 
@@ -92,7 +92,18 @@ class AlarmReceiver : BroadcastReceiver() {
         val pendingIntent = PendingIntent.getBroadcast(context, ID_REMINDER, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
 
-        Toast.makeText(context, "Reminder alarm set up", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.setup_reminder, Toast.LENGTH_SHORT).show()
+    }
+
+    fun cancelReminder(context: Context?) {
+        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_REMINDER, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        pendingIntent.cancel()
+
+        alarmManager.cancel(pendingIntent)
+
+        Toast.makeText(context, R.string.cancel_reminder, Toast.LENGTH_SHORT).show()
     }
 
     private fun isDateInvalid(time: String, format: String): Boolean {

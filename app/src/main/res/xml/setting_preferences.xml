@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_baseline_notifications_active_24"
         android:iconSpaceReserved="false"
         android:key="@string/key_reminder"
-        android:title="Daily Reminder at 09.00 AM"
+        android:title="@string/reminder_time"
         tools:targetApi="o" />
 
     <Preference
