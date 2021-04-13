@@ -23,9 +23,16 @@
         </activity>
 
         <receiver
-        android:name=".receiver.AlarmReceiver"
-        android:enabled="true"
-        android:exported="true" />
-    </application>
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
 
+        <provider
+            android:name=".provider.GithubContentProvider"
+            android:authorities="com.dicoding.picodiploma.githubapp"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.dicoding.picodiploma.githubapp.READ_DATABASE"
+            android:writePermission="com.dicoding.picodiploma.githubapp.WRITE_DATABASE" />
+    </application>
 </manifest>
