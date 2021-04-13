@@ -1,9 +1,6 @@
 package com.dicoding.picodiploma.githubapp.receiver
 
-import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -14,6 +11,7 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.dicoding.picodiploma.githubapp.R
+import com.dicoding.picodiploma.githubapp.ui.MainActivity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,7 +42,11 @@ class AlarmReceiver : BroadcastReceiver() {
         val notificationManagerCompat = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
+        val notifIntent = Intent(context, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         val builder = NotificationCompat.Builder(context, channelId)
+            .setContentIntent(pendingIntent)
             .setContentTitle(title)
             .setContentText(message)
             .setColor(ContextCompat.getColor(context, android.R.color.transparent))

@@ -24,7 +24,6 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.setting_preferences)
 
-        alarmReceiver = AlarmReceiver()
         init()
 
         languagePreference.setOnPreferenceClickListener {
@@ -40,6 +39,8 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
 
         reminderPreferences = findPreference<SwitchPreference>(reminder) as SwitchPreference
         languagePreference = findPreference<Preference>(language) as Preference
+
+        alarmReceiver = AlarmReceiver()
     }
 
     override fun onResume() {
@@ -65,7 +66,7 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
 
     private fun setReminder(state: Boolean) {
         when (state) {
-            true -> alarmReceiver.setReminder(context, "09:00",
+            true -> alarmReceiver.setReminder(context, "16:31",
                 getString(R.string.reminder_message))
             false -> alarmReceiver.cancelReminder(context)
         }
