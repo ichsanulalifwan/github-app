@@ -20,12 +20,16 @@
         <action
             android:id="@+id/action_userListFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+
+        <action
+            android:id="@+id/action_userListFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity"/>
     </fragment>
 
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.dicoding.picodiploma.githubapp.ui.DetailFragment"
-        android:label="@string/detail_user"
+        android:label="@string/label_detail"
         tools:layout="@layout/fragment_detail">
 
         <argument
@@ -37,11 +41,17 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.dicoding.picodiploma.githubapp.ui.FavoriteFragment"
-        android:label="fragment_favorite"
+        android:label="@string/label_favorite"
         tools:layout="@layout/fragment_favorite" >
 
         <action
             android:id="@+id/action_favoriteFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.dicoding.picodiploma.githubapp.ui.SettingsActivity"
+        android:label="@string/label_settings"
+        tools:layout="@layout/activity_settings" />
 </navigation>

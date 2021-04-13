@@ -11,6 +11,6 @@
     <string name="company">Perusahaan</string>
     <string name="tab_text_followers">Pengikut</string>
     <string name="tab_text_following">Mengikuti</string>
-    <string name="change_language_settings">Ganti Pengaturan Bahasa</string>
-    <string name="detail_user">Detail Pengguna</string>
+    <string name="change_language_setting">Ganti Bahasa</string>
+    <string name="label_detail">Detail Pengguna</string>
 </resources>

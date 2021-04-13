@@ -1,8 +1,6 @@
 package com.dicoding.picodiploma.githubapp.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -32,10 +30,9 @@ class UserListFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
-            R.id.change_language -> {
-                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-                startActivity(mIntent)
+            R.id.settings -> {
+                val action = UserListFragmentDirections.actionUserListFragmentToSettingsActivity()
+                findNavController().navigate(action)
             }
 
             R.id.fav_list -> {

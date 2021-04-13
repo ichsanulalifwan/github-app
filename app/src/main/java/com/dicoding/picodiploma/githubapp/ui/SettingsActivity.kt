@@ -18,5 +18,12 @@ class SettingsActivity : AppCompatActivity() {
             .beginTransaction()
             .add(R.id.setting_holder, SettingPreferenceFragment())
             .commit()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

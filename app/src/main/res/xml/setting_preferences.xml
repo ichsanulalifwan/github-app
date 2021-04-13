@@ -16,7 +16,6 @@
         android:icon="@drawable/ic_baseline_translate_24"
         android:iconSpaceReserved="false"
         android:key="@string/key_language"
-        android:title="@string/change_language_settings"
+        android:title="@string/change_language_setting"
         tools:targetApi="o" />
-
 </PreferenceScreen>
