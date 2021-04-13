@@ -10,8 +10,8 @@ interface FavUserDao {
     @Query("SELECT * FROM favorite_user_table")
     fun loadAllFav(): LiveData<List<FavUser>>
 
-    @Query("SELECT * FROM favorite_user_table WHERE username = :username ")
-    suspend fun loadSingle(username: String): FavUser
+    @Query("SELECT 1 FROM favorite_user_table WHERE username = :username ")
+    fun loadSingle(username: String): LiveData<Int>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertUser(user: FavUser)

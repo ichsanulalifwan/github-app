@@ -14,6 +14,7 @@ class FavUserRepository(application: Application) {
 
     private val favUserDao: FavUserDao
     private var favUserList: LiveData<List<FavUser>>?
+    val db = AppDatabase.getDatabase(application.applicationContext)
 
     init {
         val db = AppDatabase.getDatabase(application.applicationContext)
@@ -25,9 +26,7 @@ class FavUserRepository(application: Application) {
         return favUserList
     }
 
-    suspend fun getFavUser(username: String): FavUser {
-        return favUserDao.loadSingle(username)
-    }
+    fun getFavUser(username: String) = db?.favDao()?.loadSingle(username)
 
     fun insert(user: User) = runBlocking {
         this.launch(Dispatchers.IO) {

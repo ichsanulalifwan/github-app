@@ -1,6 +1,5 @@
 package com.dicoding.picodiploma.githubapp.ui
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -59,7 +58,6 @@ class DetailFragment : Fragment() {
         favUserViewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
         favUserViewModel.getFavUser(args.username)
 
-
         showLoading(true)
         observeData()
         setupViewPager()
@@ -99,6 +97,7 @@ class DetailFragment : Fragment() {
         }.attach()
     }
 
+    // progrees bar visibility when data loaded
     private fun showLoading(state: Boolean) {
         if (state) {
             binding.itemDetail.detailProgressBar.visibility = View.VISIBLE
@@ -107,8 +106,9 @@ class DetailFragment : Fragment() {
         }
     }
 
+    // Check if user already added in favorite user
     private fun observeDatabase() {
-        favUserViewModel.observableCurrentUser.observe(viewLifecycleOwner, { currentUser ->
+        favUserViewModel.getFavUser(args.username)?.observe(viewLifecycleOwner, { currentUser ->
             if (currentUser != null) {
                 favState = true
                 setStatusFav(favState)
@@ -117,33 +117,34 @@ class DetailFragment : Fragment() {
                 setStatusFav(favState)
             }
         })
-
-        /*favUserViewModel.observableStatus.observe(viewLifecycleOwner, { status ->
-            status.let {
-                setStatusFav(status)
-            }
-        })*/
     }
 
+    // insert and delete operations when fab clicked
     private fun onFabClicked(detailuser: User) {
         binding.fabFav.setOnClickListener {
             observeDatabase()
+
             if (!favState) {
                 favUserViewModel.addFavUser(detailuser)
-                Toast.makeText(context,
+                Toast.makeText(
+                    context,
                     "${args.username} Added to Favorite",
-                    Toast.LENGTH_SHORT)
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             } else {
                 favUserViewModel.deleteFavUser(detailuser)
-                Toast.makeText(context,
+                Toast.makeText(
+                    context,
                     "${args.username} Deleted to Favorite",
-                    Toast.LENGTH_SHORT)
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }
     }
 
+    // change fab icon if user added or deleted
     private fun setStatusFav(statusFav: Boolean) {
         when (statusFav) {
             true -> binding.fabFav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
