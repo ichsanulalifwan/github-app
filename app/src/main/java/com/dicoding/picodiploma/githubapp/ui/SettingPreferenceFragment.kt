@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
 import com.dicoding.picodiploma.githubapp.R
+import com.dicoding.picodiploma.githubapp.receiver.AlarmReceiver
 
 class SettingPreferenceFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -17,9 +19,12 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
 
     private lateinit var reminderPreferences: SwitchPreference
     private lateinit var languagePreference: Preference
+    private lateinit var alarmReceiver: AlarmReceiver
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.setting_preferences)
+
+        alarmReceiver = AlarmReceiver()
         init()
 
         languagePreference.setOnPreferenceClickListener {
@@ -53,7 +58,16 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
             reminderPreferences.isChecked = sharedPreferences.getBoolean(reminder, false)
         }
 
+        val state: Boolean = PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(key, false)
+        setReminder(state)
     }
 
-
+    private fun setReminder(state: Boolean) {
+        when (state) {
+            true -> alarmReceiver.setReminder(context, "09:00",
+                getString(R.string.reminder_message))
+            false -> alarmReceiver.cancelReminder(context)
+        }
+    }
 }

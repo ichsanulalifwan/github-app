@@ -3,6 +3,8 @@
     package="com.dicoding.picodiploma.githubapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubApp">
-        <activity android:name=".ui.SettingsActivity"></activity>
+        <activity android:name=".ui.SettingsActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+        android:name=".receiver.AlarmReceiver"
+        android:enabled="true"
+        android:exported="true" />
     </application>
 
 </manifest>

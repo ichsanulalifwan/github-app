@@ -31,8 +31,6 @@ class AlarmReceiver : BroadcastReceiver() {
         val notifId = ID_REMINDER
         val title = "GitHub Reminder"
 
-        showToast(context, title, message)
-
         message?.let {
             showReminderNotification(context, title, message, notifId)
         }
@@ -45,6 +43,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val notificationManagerCompat = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
         val builder = NotificationCompat.Builder(context, channelId)
             .setContentTitle(title)
             .setContentText(message)
@@ -65,13 +64,8 @@ class AlarmReceiver : BroadcastReceiver() {
             notificationManagerCompat.createNotificationChannel(notifChannel)
 
             builder.setChannelId(channelId)
-                /*.setSmallIcon(R.drawable.github_mark_32px)*/
         }
         notificationManagerCompat.notify(notifId, builder.build())
-    }
-
-    private fun showToast(context: Context?, title: String?, message: String?) {
-        Toast.makeText(context, "$title : $message", Toast.LENGTH_LONG).show()
     }
 
     fun setReminder(context: Context?, time: String, message: String?) {
