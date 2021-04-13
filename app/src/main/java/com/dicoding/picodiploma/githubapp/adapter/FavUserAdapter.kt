@@ -43,7 +43,6 @@ class FavUserAdapter : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
                 txtUsername.text = user.username
                 txtName.text = user.name
                 txtSite.text = user.location
-                txtCorporation.text = user.company
                 todoCard.setOnClickListener {
                     onItemClickListener.onItemClicked(user)
                 }

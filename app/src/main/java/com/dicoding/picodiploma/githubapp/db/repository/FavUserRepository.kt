@@ -35,7 +35,6 @@ class FavUserRepository(application: Application) {
                     username = it,
                     name = user.name,
                     location = user.location,
-                    company = user.company,
                     avatar = user.avatar
                 )
             }?.let {
@@ -53,7 +52,6 @@ class FavUserRepository(application: Application) {
                     username = it,
                     name = user.name,
                     location = user.location,
-                    company = user.company,
                     avatar = user.avatar
                 )
             }?.let {

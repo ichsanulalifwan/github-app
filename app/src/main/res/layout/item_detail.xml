@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/primary">
 
     <ProgressBar
         android:id="@+id/detail_progress_bar"
@@ -18,32 +19,35 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
-        tools:src="@android:color/darker_gray"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="24dp"
+        app:civ_border_color="@color/octo_color"
+        app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@android:color/darker_gray" />
 
     <TextView
         android:id="@+id/txtName"
-        tools:text="@string/name_users"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:text="@string/name_users" />
 
     <TextView
         android:id="@+id/txtUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/username"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtName" />
@@ -75,12 +79,12 @@
 
             <TextView
                 android:id="@+id/txt_repository"
-                tools:text="0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="0" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -111,12 +115,12 @@
 
             <TextView
                 android:id="@+id/txt_followers"
-                tools:text="0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="0" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -147,12 +151,12 @@
 
             <TextView
                 android:id="@+id/txt_following"
-                tools:text="0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="0" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -171,7 +175,6 @@
 
     <TextView
         android:id="@+id/location_label"
-        tools:ignore="MissingConstraints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -179,17 +182,18 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/icon_location"
-        app:layout_constraintTop_toTopOf="@+id/icon_location" />
+        app:layout_constraintTop_toTopOf="@+id/icon_location"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txt_locationD"
-        tools:text="Example Country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/icon_location"
-        app:layout_constraintTop_toBottomOf="@+id/location_label" />
+        app:layout_constraintTop_toBottomOf="@+id/location_label"
+        tools:text="Example Country" />
 
     <ImageView
         android:id="@+id/icon_company"
@@ -217,12 +221,12 @@
 
     <TextView
         android:id="@+id/txt_company"
-        tools:text="@string/company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/icon_company"
-        app:layout_constraintTop_toBottomOf="@+id/company_label" />
+        app:layout_constraintTop_toBottomOf="@+id/company_label"
+        tools:text="@string/company" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
