@@ -1,16 +1,59 @@
 package com.dicoding.picodiploma.githubapp.ui
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.provider.Settings
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.dicoding.picodiploma.githubapp.R
 
-class SettingPreferenceFragment : PreferenceFragmentCompat() {
+class SettingPreferenceFragment : PreferenceFragmentCompat(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private lateinit var reminder: String
+    private lateinit var language: String
+
+    private lateinit var reminderPreferences: SwitchPreference
+    private lateinit var languagePreference: Preference
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.setting_preferences)
+        init()
+
+        languagePreference.setOnPreferenceClickListener {
+            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            startActivity(mIntent)
+            return@setOnPreferenceClickListener true
+        }
     }
+
+    private fun init() {
+        reminder = resources.getString(R.string.key_reminder)
+        language = resources.getString(R.string.key_language)
+
+        reminderPreferences = findPreference<SwitchPreference>(reminder) as SwitchPreference
+        languagePreference = findPreference<Preference>(language) as Preference
+    }
+
+    override fun onResume() {
+        super.onResume()
+        preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+
+        if (key == reminder) {
+            reminderPreferences.isChecked = sharedPreferences.getBoolean(reminder, false)
+        }
+
+    }
+
+
 }
