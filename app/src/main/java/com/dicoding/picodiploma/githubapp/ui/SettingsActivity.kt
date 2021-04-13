@@ -20,6 +20,7 @@ class SettingsActivity : AppCompatActivity() {
             .commit()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.label_settings)
     }
 
     override fun onSupportNavigateUp(): Boolean {

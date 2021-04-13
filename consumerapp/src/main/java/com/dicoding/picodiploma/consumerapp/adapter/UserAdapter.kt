@@ -3,15 +3,17 @@ package com.dicoding.picodiploma.consumerapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.picodiploma.githubapp.databinding.ItemUserBinding
-import com.dicoding.picodiploma.githubapp.db.entity.FavUser
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.dicoding.picodiploma.consumerapp.databinding.ItemUserBinding
+import com.dicoding.picodiploma.consumerapp.model.User
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
 
     private lateinit var onItemClickListener: OnItemClickListener
-    private val listFavUser = ArrayList<FavUser>()
+    private val listFavUser = ArrayList<User>()
 
-    fun setData(list: List<FavUser>) {
+    fun setData(list: List<User>) {
         listFavUser.clear()
         listFavUser.addAll(list)
         notifyDataSetChanged()
@@ -32,7 +34,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
     override fun getItemCount(): Int = listFavUser.size
 
     inner class ListViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: FavUser) {
+        fun bind(user: User) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(user.avatar)
@@ -41,7 +43,6 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
                 txtUsername.text = user.username
                 txtName.text = user.name
                 txtSite.text = user.location
-                txtCorporation.text = user.company
                 todoCard.setOnClickListener {
                     onItemClickListener.onItemClicked(user)
                 }
@@ -54,6 +55,6 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
     }
 
     interface OnItemClickListener {
-        fun onItemClicked(user: FavUser)
+        fun onItemClicked(user: User)
     }
 }

@@ -4,6 +4,5 @@ data class User (
     var username: String,
     var name: String,
     var location: String,
-    var company: String,
     var avatar: String
 )
