@@ -1,9 +1,7 @@
 package com.dicoding.picodiploma.consumerapp.ui
 
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -21,7 +19,7 @@ class UserListFragment : Fragment() {
 
     companion object {
 
-        private const val AUTHORITY = "com.dicoding.picodiploma.githubapp.provider"
+        private const val AUTHORITY = "com.dicoding.picodiploma.githubapp"
         private const val SCHEME = "content"
         private const val TABLE_NAME = "favorite_user_table"
 
@@ -63,8 +61,9 @@ class UserListFragment : Fragment() {
     }
 
     private fun loadData() {
-        val contentResolver = context?.contentResolver
         showLoading(true)
+
+        val contentResolver = context?.contentResolver
         val cursor = contentResolver?.query(
             CONTENT_URI,
             null,
@@ -72,7 +71,9 @@ class UserListFragment : Fragment() {
             null,
             null
         )
+
         val data = MappingHelper.mapCursorToArrayList(cursor)
+
         if (cursor != null && cursor.count > 0) {
             setupRecyclerView(data)
             showLoading(false)
@@ -81,26 +82,11 @@ class UserListFragment : Fragment() {
             Snackbar.make(
                 binding.userRecyclerView,
                 "There's No Favorite User",
-                Snackbar.LENGTH_SHORT
+                Snackbar.LENGTH_LONG
             )
                 .show()
         }
     }
-
-    /*fun mapCursorToArrayList(usersCursor: Cursor?): ArrayList<User> {
-        val userLIst = ArrayList<User>()
-
-        usersCursor?.apply {
-            while (moveToNext()) {
-                val username = getString(getColumnIndexOrThrow("username"))
-                val name = getString(getColumnIndexOrThrow("name"))
-                val location = getString(getColumnIndexOrThrow("location"))
-                val avatar = getString(getColumnIndexOrThrow("avatar"))
-                userLIst.add(User(username, name, location, avatar))
-            }
-        }
-        return userLIst
-    }*/
 
     private fun showLoading(state: Boolean) {
         if (state) {

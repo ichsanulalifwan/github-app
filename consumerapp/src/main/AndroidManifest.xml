@@ -3,8 +3,8 @@
     package="com.dicoding.picodiploma.consumerapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.dicoding.picodiploma.githubapp.provider.READ_DATABASE" />
-    <uses-permission android:name="com.dicoding.picodiploma.githubapp.provider.WRITE_DATABASE" />
+    <uses-permission android:name="com.dicoding.picodiploma.githubapp.READ_DATABASE" />
+    <uses-permission android:name="com.dicoding.picodiploma.githubapp.WRITE_DATABASE" />
 
     <application
         android:allowBackup="true"

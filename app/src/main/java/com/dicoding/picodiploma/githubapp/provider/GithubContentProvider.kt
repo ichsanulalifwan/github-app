@@ -13,11 +13,11 @@ class GithubContentProvider : ContentProvider() {
     companion object {
         private const val FAV_USER = 1
         private const val TABLE = "favorite_user_table"
-        private const val AUTHORITY = "com.dicoding.picodiploma.githubapp.provider"
+        private const val AUTHORITY = "com.dicoding.picodiploma.githubapp"
         private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
         init {
-            // content://com.dicoding.picodiploma.githubapp.provider/favorite_user_table
+            // content://com.dicoding.picodiploma.githubapp/favorite_user_table
             uriMatcher.addURI(AUTHORITY, TABLE, FAV_USER)
         }
     }
