@@ -12,7 +12,6 @@ import com.dicoding.picodiploma.githubapp.adapter.ListUserAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentUserListBinding
 import com.dicoding.picodiploma.githubapp.model.User
 import com.dicoding.picodiploma.githubapp.viewmodel.UserListViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class UserListFragment : Fragment() {
 
@@ -76,6 +75,7 @@ class UserListFragment : Fragment() {
 
                     if (inputUsername.isEmpty()) return@setOnKeyListener true
                     showLoading(true)
+                    isEmptyList(false)
 
                     userListViewModel.setUserList(context, inputUsername)
 
@@ -91,6 +91,7 @@ class UserListFragment : Fragment() {
 
             if (username.isEmpty()) return@setEndIconOnClickListener
             showLoading(true)
+            isEmptyList(false)
 
             userListViewModel.setUserList(context, username)
         }
@@ -109,9 +110,11 @@ class UserListFragment : Fragment() {
             if (listUser != null && listUser.isNotEmpty()) {
                 userListadapter.setData(listUser)
                 showLoading(false)
+                isEmptyList(false)
             } else {
                 Toast.makeText(context, R.string.user_not_found, Toast.LENGTH_SHORT).show()
                 showLoading(false)
+                isEmptyList(true)
             }
         })
     }
@@ -134,6 +137,19 @@ class UserListFragment : Fragment() {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun isEmptyList(state: Boolean) {
+        when (state) {
+            true -> {
+                binding.searchImage.visibility = View.VISIBLE
+                binding.userRecyclerView.visibility = View.GONE
+            }
+            false -> {
+                binding.searchImage.visibility = View.GONE
+                binding.userRecyclerView.visibility = View.VISIBLE
+            }
         }
     }
 }
