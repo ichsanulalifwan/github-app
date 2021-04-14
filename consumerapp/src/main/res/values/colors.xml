@@ -2,7 +2,6 @@
 <resources>
     <color name="primary">#559999</color>
     <color name="primary_dark">#115566</color>
-    <color name="primary_light">#88cccc</color>
     <color name="octo_color">#5294e2</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

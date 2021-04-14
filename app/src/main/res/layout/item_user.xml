@@ -55,9 +55,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textColor="@color/octo_color"
-            app:layout_constraintTop_toTopOf="@id/txt_username"
             app:layout_constraintBottom_toBottomOf="@id/txt_username"
             app:layout_constraintStart_toEndOf="@+id/txt_username"
+            app:layout_constraintTop_toTopOf="@id/txt_username"
             tools:text="Location" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

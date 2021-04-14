@@ -24,7 +24,6 @@
     <string name="reminder_time">Pengingat Harian pukul 09.00 Pagi</string>
     <string name="reminder_message">Hai, Mari kita lihat teman-teman Anda di GitHub</string>
     <string name="appwidget_text">Pengguna GitHub Favorit</string>
-    <string name="add_widget">Tambahkan widget</string>
     <string name="empty_text">TIDAK ADA DATA</string>
     <string name="widget_image_view">Tampilan Gambar Widget</string>
     <string name="splash_screen_image">Gambar Layar Pembuka</string>
