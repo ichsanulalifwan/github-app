@@ -23,7 +23,8 @@ class FavUserAdapter : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
         val binding = ItemUserBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
         return ListViewHolder(binding)
     }
 
@@ -33,7 +34,8 @@ class FavUserAdapter : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
 
     override fun getItemCount(): Int = listFavUser.size
 
-    inner class ListViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ListViewHolder(private val binding: ItemUserBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(user: FavUser) {
             with(binding) {
                 Glide.with(itemView.context)

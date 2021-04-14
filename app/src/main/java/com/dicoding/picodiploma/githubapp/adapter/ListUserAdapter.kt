@@ -27,7 +27,10 @@ class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
         parent: ViewGroup,
         viewType: Int
     ): ListViewHolder {
-        val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemUserBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
         return ListViewHolder(binding)
     }
 
@@ -37,9 +40,10 @@ class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
 
     override fun getItemCount(): Int = listUser.size
 
-    inner class ListViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ListViewHolder(private val binding: ItemUserBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
-            with(binding){
+            with(binding) {
                 Glide.with(itemView.context)
                     .load(user.avatar)
                     .apply(RequestOptions().override(55, 55))

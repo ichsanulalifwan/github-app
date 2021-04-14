@@ -16,14 +16,21 @@ import java.lang.Exception
 class FollowerViewModel : ViewModel() {
 
 
-    private val listFollowers = MutableLiveData<ArrayList<User>>()
+    private val listFollow = MutableLiveData<ArrayList<User>>()
 
-    fun setFollowersList(context: Context?, username: String) {
+    fun setFollowList(context: Context?, username: String, type: Int) {
+
+        when (type) {
+            0 -> ""
+            1 -> ""
+        }
+
+        val url = "https://api.github.com/users/$username/following"
+        val url = "https://api.github.com/users/$username/followers"
 
         val listUser = ArrayList<User>()
-        val url = "https://api.github.com/users/$username/followers"
         val client = AsyncHttpClient()
-        client.addHeader("Authorization","token 74a052e7810f2fd367b034ffbfc32d8992a8c656")
+        client.addHeader("Authorization", "token 74a052e7810f2fd367b034ffbfc32d8992a8c656")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -32,16 +39,16 @@ class FollowerViewModel : ViewModel() {
                 responseBody: ByteArray
             ) {
                 val result = String(responseBody)
-                try{
+                try {
                     val response = JSONArray(result)
                     for (i in 0 until response.length()) {
                         val data = response.getJSONObject(i)
                         val user = User()
-                        user.username  = data.getString("login")
-                        user.avatar= data.getString("avatar_url")
+                        user.username = data.getString("login")
+                        user.avatar = data.getString("avatar_url")
                         listUser.add(user)
                     }
-                    listFollowers.postValue(listUser)
+                    listFollow.postValue(listUser)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -65,7 +72,7 @@ class FollowerViewModel : ViewModel() {
         })
     }
 
-    fun getFollowersList(): LiveData<ArrayList<User>> {
-        return listFollowers
+    fun getFolloweList(): LiveData<ArrayList<User>> {
+        return listFollow
     }
 }

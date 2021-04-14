@@ -1,6 +1,6 @@
 package com.dicoding.picodiploma.githubapp.model
 
-data class User (
+data class User(
     var username: String? = null,
     var name: String? = null,
     var location: String? = null,

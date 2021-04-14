@@ -22,7 +22,7 @@ class UserListViewModel : ViewModel() {
         val listUser = ArrayList<User>()
         val url = "https://api.github.com/search/users?q=$username"
         val client = AsyncHttpClient()
-        client.addHeader("Authorization","token 74a052e7810f2fd367b034ffbfc32d8992a8c656")
+        client.addHeader("Authorization", "token 74a052e7810f2fd367b034ffbfc32d8992a8c656")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -31,14 +31,14 @@ class UserListViewModel : ViewModel() {
                 responseBody: ByteArray
             ) {
                 val result = String(responseBody)
-                try{
+                try {
                     val responseObject = JSONObject(result)
                     val items = responseObject.getJSONArray("items")
                     for (i in 0 until items.length()) {
                         val item = items.getJSONObject(i)
                         val user = User()
-                        user.username  = item.getString("login")
-                        user.avatar= item.getString("avatar_url")
+                        user.username = item.getString("login")
+                        user.avatar = item.getString("avatar_url")
                         listUser.add(user)
                     }
                     listUsers.postValue(listUser)

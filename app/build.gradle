@@ -44,7 +44,7 @@ androidExtensions {
 }
 
 dependencies {
-    implementation "'androidx.legacy:legacy-support-v4:$legacy_version"
+    implementation "androidx.legacy:legacy-support-v4:$legacy_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$app_compat_version"

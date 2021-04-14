@@ -50,8 +50,14 @@ class FollowFragment : Fragment() {
         val username = arguments?.getString(ARG_USERNAME)
         val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
 
-        followerViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowerViewModel::class.java)
-        followingViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowingViewModel::class.java)
+        followerViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(FollowerViewModel::class.java)
+        followingViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(FollowingViewModel::class.java)
 
         if (username != null) {
             followerViewModel.setFollowersList(context, username)
@@ -75,7 +81,7 @@ class FollowFragment : Fragment() {
         }
 
         followListadapter = ListUserAdapter()
-        followListadapter.setOnItemClickListener(object : ListUserAdapter.OnItemClickListener{
+        followListadapter.setOnItemClickListener(object : ListUserAdapter.OnItemClickListener {
             override fun onItemClicked(user: User) {
                 when (index) {
                     0 -> Toast.makeText(context, "Follower Selected", Toast.LENGTH_SHORT).show()

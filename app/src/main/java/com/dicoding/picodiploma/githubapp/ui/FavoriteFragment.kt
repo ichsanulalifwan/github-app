@@ -42,7 +42,7 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun onItemSelected() {
-        favAdapter.setOnItemClickListener(object: FavUserAdapter.OnItemClickListener {
+        favAdapter.setOnItemClickListener(object : FavUserAdapter.OnItemClickListener {
             override fun onItemClicked(user: FavUser) {
                 val action = user.username.let {
                     FavoriteFragmentDirections.actionFavoriteFragmentToDetailFragment(it)
