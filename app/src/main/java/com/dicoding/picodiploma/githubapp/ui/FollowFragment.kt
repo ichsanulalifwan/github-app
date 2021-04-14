@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.picodiploma.githubapp.R
 import com.dicoding.picodiploma.githubapp.adapter.ListUserAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentFollowBinding
 import com.dicoding.picodiploma.githubapp.model.User
@@ -68,8 +69,8 @@ class FollowFragment : Fragment() {
         followListadapter.setOnItemClickListener(object : ListUserAdapter.OnItemClickListener {
             override fun onItemClicked(user: User) {
                 when (index) {
-                    0 -> Toast.makeText(context, "Follower Selected", Toast.LENGTH_SHORT).show()
-                    1 -> Toast.makeText(context, "Following Selected", Toast.LENGTH_SHORT).show()
+                    0 -> Toast.makeText(context, getString(R.string.click_follower), Toast.LENGTH_SHORT).show()
+                    1 -> Toast.makeText(context, getString(R.string.click_following), Toast.LENGTH_SHORT).show()
                 }
             }
         })

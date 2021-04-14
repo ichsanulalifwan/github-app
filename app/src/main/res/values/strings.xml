@@ -29,4 +29,8 @@
     <string name="splash_screen_image">Splash Screen Image</string>
     <string name="user_not_found">User Not Found</string>
     <string name="search_image">Search Image</string>
+    <string name="add_user"> Added to Favorite</string>
+    <string name="delete_user"> Deleted from Favorite</string>
+    <string name="click_follower">Follower Selected</string>
+    <string name="click_following">Following Selected</string>
 </resources>

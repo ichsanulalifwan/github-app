@@ -67,6 +67,7 @@ class UserListFragment : Fragment() {
         onItemSelected()
     }
 
+    // when search button clicked
     private fun userSearch() {
         binding.editUserSearch.setOnKeyListener { _, keyCode, event ->
             when {
@@ -105,6 +106,7 @@ class UserListFragment : Fragment() {
         }
     }
 
+    // load data
     private fun observeData() {
         userListViewModel.getUserList().observe(viewLifecycleOwner, { listUser ->
             if (listUser != null && listUser.isNotEmpty()) {
@@ -140,6 +142,7 @@ class UserListFragment : Fragment() {
         }
     }
 
+    // check if data exist
     private fun isEmptyList(state: Boolean) {
         when (state) {
             true -> {

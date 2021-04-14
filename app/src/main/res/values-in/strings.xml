@@ -30,4 +30,8 @@
     <string name="splash_screen_image">Gambar Layar Pembuka</string>
     <string name="user_not_found">Pengguna tidak ditemukan</string>
     <string name="search_image">Cari Gambar</string>
+    <string name="add_user"> Ditambahkan ke Favorit</string>
+    <string name="delete_user"> Dihapus dari Favorit</string>
+    <string name="click_follower">Pengikut Dipilih</string>
+    <string name="click_following">Mengikuti Dipilih</string>
 </resources>
