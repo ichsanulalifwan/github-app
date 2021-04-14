@@ -66,7 +66,7 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
 
     private fun setReminder(state: Boolean) {
         when (state) {
-            true -> alarmReceiver.setReminder(context, "16:31",
+            true -> alarmReceiver.setReminder(context, "09:00",
                 getString(R.string.reminder_message))
             false -> alarmReceiver.cancelReminder(context)
         }
