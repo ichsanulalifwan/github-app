@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubApp">
-        <receiver android:name=".FavUserWidget">
+
+        <receiver android:name=".widget.FavUserWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -51,6 +52,10 @@
             android:name=".receiver.AlarmReceiver"
             android:enabled="true"
             android:exported="true" />
+
+        <service
+            android:name="com.dicoding.picodiploma.githubapp.widget.StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>
