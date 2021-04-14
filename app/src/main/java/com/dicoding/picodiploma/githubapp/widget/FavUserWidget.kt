@@ -29,15 +29,9 @@ class FavUserWidget : AppWidgetProvider() {
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             intent.data = intent.toUri(Intent.URI_INTENT_SCHEME).toUri()
 
-            val widgetText = context.getString(R.string.appwidget_text)
-            // Construct the RemoteViews object
             val views = RemoteViews(context.packageName, R.layout.fav_user_widget)
-            views.setTextViewText(R.id.appwidget_text, widgetText)
             views.setRemoteAdapter(R.id.stack_view, intent)
             views.setEmptyView(R.id.stack_view, R.id.empty_view)
-
-            // Instruct the widget manager to update the widget
-            appWidgetManager.updateAppWidget(appWidgetId, views)
 
             val toastIntent = Intent(context, FavUserWidget::class.java)
             toastIntent.action = TOAST_ACTION
@@ -50,6 +44,7 @@ class FavUserWidget : AppWidgetProvider() {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
             views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent)
+
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
     }
@@ -57,12 +52,13 @@ class FavUserWidget : AppWidgetProvider() {
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
         if (intent?.action != null) {
-            if (intent?.action == TOAST_ACTION) {
+            if (intent.action == TOAST_ACTION) {
                 val viewIndex = intent.getIntExtra(EXTRA_ITEM, 0)
                 Toast.makeText(context, "Touched view $viewIndex", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
@@ -72,13 +68,5 @@ class FavUserWidget : AppWidgetProvider() {
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
-    }
-
-    override fun onEnabled(context: Context) {
-        // Enter relevant functionality for when the first widget is created
-    }
-
-    override fun onDisabled(context: Context) {
-        // Enter relevant functionality for when the last widget is disabled
     }
 }
