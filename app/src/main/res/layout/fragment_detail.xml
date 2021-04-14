@@ -33,9 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="32dp"
-        android:backgroundTint="@color/fab_red"
+        android:backgroundTint="@color/red_crimson"
         android:contentDescription="@string/favourite"
-        android:src="@drawable/ic_baseline_favorite_border_24" />
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        app:tint="@color/white" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/primary">
+    android:background="@color/primary"
+    android:paddingBottom="16dp">
 
     <ProgressBar
         android:id="@+id/detail_progress_bar"
@@ -21,7 +22,7 @@
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         app:civ_border_color="@color/octo_color"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,186 +48,174 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/username"
-        android:textColor="@color/white"
+        android:textColor="@color/octo_color"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/repository_card"
+
+    <LinearLayout
+        android:id="@+id/repository_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:cardBackgroundColor="@color/teal_200"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/followers_card"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/followers_group"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtUsername">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txt_repository"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:text="0" />
 
-            <TextView
-                android:id="@+id/repository_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="@string/txt_repository"
-                android:textAlignment="center"
-                android:textSize="12sp" />
+        <TextView
+            android:id="@+id/repository_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:text="@string/txt_repository"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/txt_repository"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:textAlignment="center"
-                android:textSize="12sp"
-                tools:text="0" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/followers_card"
+    <LinearLayout
+        android:id="@+id/followers_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:cardBackgroundColor="@color/purple_500"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/following_card"
-        app:layout_constraintStart_toEndOf="@+id/repository_card"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/following_group"
+        app:layout_constraintStart_toEndOf="@+id/repository_group"
         app:layout_constraintTop_toBottomOf="@+id/txtUsername">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txt_followers"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:text="0" />
 
-            <TextView
-                android:id="@+id/followers_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="@string/txt_followers"
-                android:textAlignment="center"
-                android:textSize="12sp" />
+        <TextView
+            android:id="@+id/followers_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:text="@string/txt_followers"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/txt_followers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:textAlignment="center"
-                android:textSize="12sp"
-                tools:text="0" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/following_card"
+    <LinearLayout
+        android:id="@+id/following_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:cardBackgroundColor="@color/purple_200"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/followers_group"
+        app:layout_constraintTop_toBottomOf="@+id/txtUsername">
+
+        <TextView
+            android:id="@+id/txt_following"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/following_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:text="@string/txt_following"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/border_card"
+        android:layout_width="320dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="8dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/followers_card"
-        app:layout_constraintTop_toBottomOf="@+id/txtUsername">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/followers_group" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/following_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="@string/txt_following"
-                android:textAlignment="center"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/txt_following"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:textAlignment="center"
-                android:textSize="12sp"
-                tools:text="0" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/border_vertical"
+        android:layout_width="2dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/border_card" />
 
     <ImageView
         android:id="@+id/icon_location"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/location_users"
-        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repository_card"
-        app:srcCompat="@drawable/ic_baseline_location_on_24" />
-
-    <TextView
-        android:id="@+id/location_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/location_users"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/icon_location"
-        app:layout_constraintTop_toTopOf="@+id/icon_location"
-        tools:ignore="MissingConstraints" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/location_users"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/border_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/border_card"
+        app:srcCompat="@drawable/ic_baseline_location_on_24"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/txt_locationD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:textAlignment="textEnd"
+        android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/icon_location"
-        app:layout_constraintTop_toBottomOf="@+id/location_label"
-        tools:text="Example Country" />
+        app:layout_constraintBottom_toBottomOf="@id/icon_location"
+        app:layout_constraintEnd_toStartOf="@id/icon_location"
+        app:layout_constraintTop_toTopOf="@id/icon_location"
+        tools:text="@string/location_users" />
 
     <ImageView
         android:id="@+id/icon_company"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:background="@drawable/ic_baseline_business_24"
-        android:contentDescription="@string/company"
-        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
-        app:layout_constraintStart_toEndOf="@id/location_label"
-        app:layout_constraintTop_toBottomOf="@+id/following_card" />
-
-    <TextView
-        android:id="@+id/company_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/company"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/icon_company"
-        app:layout_constraintTop_toTopOf="@+id/icon_company" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/company"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/border_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/border_card"
+        app:srcCompat="@drawable/ic_baseline_business_24"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/txt_company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:textColor="@color/white"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/icon_company"
         app:layout_constraintStart_toEndOf="@id/icon_company"
-        app:layout_constraintTop_toBottomOf="@+id/company_label"
+        app:layout_constraintTop_toTopOf="@id/icon_company"
         tools:text="@string/company" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
