@@ -11,15 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.githubapp.adapter.ListUserAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentFollowBinding
 import com.dicoding.picodiploma.githubapp.model.User
-import com.dicoding.picodiploma.githubapp.viewmodel.FollowerViewModel
-import com.dicoding.picodiploma.githubapp.viewmodel.FollowingViewModel
+import com.dicoding.picodiploma.githubapp.viewmodel.FollowViewModel
 
 class FollowFragment : Fragment() {
 
     private lateinit var binding: FragmentFollowBinding
     private lateinit var followListadapter: ListUserAdapter
-    private lateinit var followerViewModel: FollowerViewModel
-    private lateinit var followingViewModel: FollowingViewModel
+    private lateinit var followViewModel: FollowViewModel
 
     companion object {
 
@@ -50,35 +48,21 @@ class FollowFragment : Fragment() {
         val username = arguments?.getString(ARG_USERNAME)
         val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
 
-        followerViewModel = ViewModelProvider(
+        followViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
-        ).get(FollowerViewModel::class.java)
-        followingViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        ).get(FollowingViewModel::class.java)
+        ).get(FollowViewModel::class.java)
 
         if (username != null) {
-            followerViewModel.setFollowersList(context, username)
-            followingViewModel.setFollowingList(username)
+            index?.let { followViewModel.setFollowList(context, username, it) }
         }
 
-        when (index) {
-            0 -> followerViewModel.getFollowersList().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    followListadapter.setData(it)
-                    showLoading(false)
-                }
-            })
-
-            1 -> followingViewModel.getFollowingList().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    followListadapter.setData(it)
-                    showLoading(false)
-                }
-            })
-        }
+        followViewModel.getFollowList().observe(viewLifecycleOwner, {
+            if (it != null) {
+                followListadapter.setData(it)
+                showLoading(false)
+            }
+        })
 
         followListadapter = ListUserAdapter()
         followListadapter.setOnItemClickListener(object : ListUserAdapter.OnItemClickListener {

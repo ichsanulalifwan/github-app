@@ -1,6 +1,8 @@
 package com.dicoding.picodiploma.githubapp.viewmodel
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,17 +13,21 @@ import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import java.lang.Exception
 
-class FollowingViewModel : ViewModel() {
+class FollowViewModel : ViewModel() {
 
+    private lateinit var url: String
+    private val listFollow = MutableLiveData<ArrayList<User>>()
 
-    private val listFolloing = MutableLiveData<ArrayList<User>>()
+    fun setFollowList(context: Context?, username: String, index: Int) {
 
-    fun setFollowingList(username: String) {
+        when (index) {
+            0 -> url = "https://api.github.com/users/$username/followers"
+            1 -> url = "https://api.github.com/users/$username/following"
+        }
 
         val listUser = ArrayList<User>()
-        val url = "https://api.github.com/users/$username/following"
         val client = AsyncHttpClient()
-        client.addHeader("Authorization","token 74a052e7810f2fd367b034ffbfc32d8992a8c656")
+        client.addHeader("Authorization", "token 74a052e7810f2fd367b034ffbfc32d8992a8c656")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -30,16 +36,16 @@ class FollowingViewModel : ViewModel() {
                 responseBody: ByteArray
             ) {
                 val result = String(responseBody)
-                try{
+                try {
                     val response = JSONArray(result)
                     for (i in 0 until response.length()) {
                         val data = response.getJSONObject(i)
                         val user = User()
-                        user.username  = data.getString("login")
-                        user.avatar= data.getString("avatar_url")
+                        user.username = data.getString("login")
+                        user.avatar = data.getString("avatar_url")
                         listUser.add(user)
                     }
-                    listFolloing.postValue(listUser)
+                    listFollow.postValue(listUser)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -51,12 +57,19 @@ class FollowingViewModel : ViewModel() {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
+                val errorMessage = when (statusCode) {
+                    401 -> "$statusCode : Bad Request"
+                    403 -> "$statusCode : Forbidden"
+                    404 -> "$statusCode : Not Found"
+                    else -> "$statusCode : ${error?.message}"
+                }
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 Log.d("onFailure", error?.message.toString())
             }
         })
     }
 
-    fun getFollowingList(): LiveData<ArrayList<User>> {
-        return listFolloing
+    fun getFollowList(): LiveData<ArrayList<User>> {
+        return listFollow
     }
 }
