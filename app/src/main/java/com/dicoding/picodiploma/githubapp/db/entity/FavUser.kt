@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class FavUser(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "username") var username: String,
-    @ColumnInfo(name = "name") var name: String?,
-    @ColumnInfo(name = "location") var location: String?,
-    @ColumnInfo(name = "avatar") var avatar: String?
+    @ColumnInfo(name = "name") var name: String? = null,
+    @ColumnInfo(name = "location") var location: String? = null,
+    @ColumnInfo(name = "avatar") var avatar: String? = null
 )

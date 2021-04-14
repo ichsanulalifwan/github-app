@@ -128,7 +128,7 @@ class DetailFragment : Fragment() {
                 favUserViewModel.addFavUser(detailuser)
                 Toast.makeText(
                     context,
-                    args.username + getString(R.string.add_user),
+                    args.username + " " + getString(R.string.add_user),
                     Toast.LENGTH_SHORT
                 )
                     .show()
@@ -136,7 +136,7 @@ class DetailFragment : Fragment() {
                 favUserViewModel.deleteFavUser(detailuser)
                 Toast.makeText(
                     context,
-                    args.username + getString(R.string.delete_user),
+                    args.username + " " + getString(R.string.delete_user),
                     Toast.LENGTH_SHORT
                 )
                     .show()
