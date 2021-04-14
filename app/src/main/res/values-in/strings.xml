@@ -11,6 +11,23 @@
     <string name="company">Perusahaan</string>
     <string name="tab_text_followers">Pengikut</string>
     <string name="tab_text_following">Mengikuti</string>
+    <string name="change_settings">Ubah pengaturan</string>
     <string name="change_language_setting">Ganti Bahasa</string>
     <string name="label_detail">Detail Pengguna</string>
+    <string name="favourite">Favorit</string>
+    <string name="favorite_user">Pengguna Favorit</string>
+    <string name="key_language">Bahasa</string>
+    <string name="key_reminder">Pengingat</string>
+    <string name="label_settings">Pengaturan</string>
+    <string name="setup_reminder">Pengingat telah diaktifkan</string>
+    <string name="cancel_reminder">Pengingat telah dinonaktifkan</string>
+    <string name="reminder_time">Pengingat Harian pukul 09.00 Pagi</string>
+    <string name="reminder_message">Hai, Mari kita lihat teman-teman Anda di GitHub</string>
+    <string name="appwidget_text">Pengguna GitHub Favorit</string>
+    <string name="add_widget">Tambahkan widget</string>
+    <string name="empty_text">TIDAK ADA DATA</string>
+    <string name="widget_image_view">Tampilan Gambar Widget</string>
+    <string name="splash_screen_image">Gambar Layar Pembuka</string>
+    <string name="user_not_found">Pengguna tidak ditemukan</string>
+    <string name="search_image">Cari Gambar</string>
 </resources>

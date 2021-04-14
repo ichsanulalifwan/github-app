@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.dicoding.picodiploma.githubapp.ui.FavoriteFragment"
-        android:label="@string/label_favorite"
+        android:label="@string/favorite_user"
         tools:layout="@layout/fragment_favorite" >
 
         <action
