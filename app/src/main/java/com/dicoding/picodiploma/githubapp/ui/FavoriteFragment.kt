@@ -38,6 +38,7 @@ class FavoriteFragment : Fragment() {
         setupRecyclerView()
         observeData()
         onItemSelected()
+        showLoading(true)
     }
 
     private fun onItemSelected() {
@@ -57,6 +58,7 @@ class FavoriteFragment : Fragment() {
         favViewModel.getFavUserList()?.observe(viewLifecycleOwner, { listFavUser ->
             listFavUser?.let {
                 favAdapter.setData(listFavUser)
+                showLoading(false)
             }
         })
     }
@@ -66,6 +68,14 @@ class FavoriteFragment : Fragment() {
             favoriteRv.layoutManager = LinearLayoutManager(activity)
             favoriteRv.adapter = favAdapter
             favoriteRv.setHasFixedSize(true)
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }
