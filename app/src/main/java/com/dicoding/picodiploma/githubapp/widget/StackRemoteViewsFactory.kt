@@ -18,27 +18,26 @@ internal class StackRemoteViewsFactory(private val context: Context) :
     private val widgetItems = ArrayList<String?>()
 
     companion object {
-
         private const val AUTHORITY = "com.dicoding.picodiploma.githubapp"
         private const val SCHEME = "content"
         private const val TABLE_NAME = "favorite_user_table"
-
-        val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
-            .authority(AUTHORITY)
-            .appendPath(TABLE_NAME)
-            .build()
     }
 
     override fun onCreate() {
-        TODO("Not yet implemented")
     }
 
     override fun onDataSetChanged() {
 
+        val uri: Uri = Uri.Builder().scheme(SCHEME)
+            .authority(AUTHORITY)
+            .appendPath(TABLE_NAME)
+            .build()
+
         val indentityToken = Binder.clearCallingIdentity()
 
-        val cursor = context.contentResolver.query(
-            CONTENT_URI,
+        val contentResolver = context.contentResolver
+        val cursor = contentResolver.query(
+            uri,
             null,
             null,
             null,
@@ -47,12 +46,10 @@ internal class StackRemoteViewsFactory(private val context: Context) :
 
         val list = MappingHelper.mapCursorToArrayList(cursor)
 
-        when (list.size > 0) {
-            true -> {
-                widgetItems.clear()
-                for (user in list) {
-                    widgetItems.add(user.avatar)
-                }
+        if (cursor != null && cursor.count > 0) {
+            widgetItems.clear()
+            for (user in list) {
+                widgetItems.add(user.avatar)
             }
         }
 
@@ -60,12 +57,13 @@ internal class StackRemoteViewsFactory(private val context: Context) :
     }
 
     override fun onDestroy() {
-        TODO("Not yet implemented")
     }
 
     override fun getCount(): Int = widgetItems.size
 
     override fun getViewAt(position: Int): RemoteViews {
+
+        val rv = RemoteViews(context.packageName, R.layout.widget_item)
 
         val bitmap: Bitmap = Glide.with(context)
             .asBitmap()
@@ -73,7 +71,6 @@ internal class StackRemoteViewsFactory(private val context: Context) :
             .submit(420, 420)
             .get()
 
-        val rv = RemoteViews(context.packageName, R.layout.widget_item)
         rv.setImageViewBitmap(R.id.imageWidget, bitmap)
 
         val extras = bundleOf(FavUserWidget.EXTRA_ITEM to position)
