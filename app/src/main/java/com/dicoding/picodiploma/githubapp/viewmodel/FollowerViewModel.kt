@@ -1,6 +1,8 @@
 package com.dicoding.picodiploma.githubapp.viewmodel
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,7 +18,7 @@ class FollowerViewModel : ViewModel() {
 
     private val listFollowers = MutableLiveData<ArrayList<User>>()
 
-    fun setFollowersList(username: String) {
+    fun setFollowersList(context: Context?, username: String) {
 
         val listUser = ArrayList<User>()
         val url = "https://api.github.com/users/$username/followers"
@@ -51,6 +53,13 @@ class FollowerViewModel : ViewModel() {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
+                val errorMessage = when (statusCode) {
+                    401 -> "$statusCode : Bad Request"
+                    403 -> "$statusCode : Forbidden"
+                    404 -> "$statusCode : Not Found"
+                    else -> "$statusCode : ${error?.message}"
+                }
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 Log.d("onFailure", error?.message.toString())
             }
         })

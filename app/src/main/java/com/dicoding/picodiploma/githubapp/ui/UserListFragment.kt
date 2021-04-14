@@ -75,7 +75,7 @@ class UserListFragment : Fragment() {
                     if (inputUsername.isEmpty()) return@setOnKeyListener true
                     showLoading(true)
 
-                    userListViewModel.setUserList(inputUsername)
+                    userListViewModel.setUserList(context, inputUsername)
 
                     return@setOnKeyListener true
                 }
@@ -90,7 +90,7 @@ class UserListFragment : Fragment() {
             if (username.isEmpty()) return@setEndIconOnClickListener
             showLoading(true)
 
-            userListViewModel.setUserList(username)
+            userListViewModel.setUserList(context, username)
         }
     }
 

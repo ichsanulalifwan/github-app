@@ -54,7 +54,7 @@ class FollowFragment : Fragment() {
         followingViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowingViewModel::class.java)
 
         if (username != null) {
-            followerViewModel.setFollowersList(username)
+            followerViewModel.setFollowersList(context, username)
             followingViewModel.setFollowingList(username)
         }
 

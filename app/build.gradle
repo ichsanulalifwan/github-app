@@ -8,7 +8,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.dicoding.picodiploma.githubapp"
@@ -44,48 +44,48 @@ androidExtensions {
 }
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "'androidx.legacy:legacy-support-v4:$legacy_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "androidx.core:core-ktx:$coreVersion"
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.core:core-ktx:$core_version"
+    implementation "androidx.appcompat:appcompat:$app_compat_version"
 
     // UI components
-    implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "androidx.viewpager2:viewpager2:$viewpager2_version"
 
     // Coroutines components
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
     // Recyclerview
-    implementation "androidx.recyclerview:recyclerview:$recyclerviewVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
     // Image
-    implementation "de.hdodenhof:circleimageview:$circleimageviewVersion"
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "de.hdodenhof:circleimageview:$circleimageview_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
 
     // Navigation components
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     // Lifecycle components
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExt_version"
 
     // Networking
-    implementation "com.loopj.android:android-async-http:$loopjVersion"
+    implementation "com.loopj.android:android-async-http:$loopj_version"
 
     // Room components
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
-    implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation "androidx.preference:preference-ktx:$preference_version"
 
     // Testing
-    testImplementation "junit:junit:$junitVersion"
+    testImplementation "junit:junit:$junit_version"
     testImplementation "androidx.room:room-testing:$room_version"
-    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxjunit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 }
