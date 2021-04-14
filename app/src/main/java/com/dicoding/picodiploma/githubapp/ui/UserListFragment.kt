@@ -2,6 +2,7 @@ package com.dicoding.picodiploma.githubapp.ui
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -11,6 +12,7 @@ import com.dicoding.picodiploma.githubapp.adapter.ListUserAdapter
 import com.dicoding.picodiploma.githubapp.databinding.FragmentUserListBinding
 import com.dicoding.picodiploma.githubapp.model.User
 import com.dicoding.picodiploma.githubapp.viewmodel.UserListViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class UserListFragment : Fragment() {
 
@@ -104,8 +106,11 @@ class UserListFragment : Fragment() {
 
     private fun observeData() {
         userListViewModel.getUserList().observe(viewLifecycleOwner, { listUser ->
-            if (listUser != null) {
+            if (listUser != null && listUser.isNotEmpty()) {
                 userListadapter.setData(listUser)
+                showLoading(false)
+            } else {
+                Toast.makeText(context, R.string.user_not_found, Toast.LENGTH_SHORT).show()
                 showLoading(false)
             }
         })
