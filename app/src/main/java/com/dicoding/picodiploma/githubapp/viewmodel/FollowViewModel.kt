@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.picodiploma.githubapp.BuildConfig
 import com.dicoding.picodiploma.githubapp.model.User
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -27,7 +28,7 @@ class FollowViewModel : ViewModel() {
 
         val listUser = ArrayList<User>()
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 74a052e7810f2fd367b034ffbfc32d8992a8c656")
+        client.addHeader("Authorization", API_KEY)
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -71,5 +72,8 @@ class FollowViewModel : ViewModel() {
 
     fun getFollowList(): LiveData<ArrayList<User>> {
         return listFollow
+    }
+    companion object {
+        private const val API_KEY = BuildConfig.API_KEY
     }
 }
